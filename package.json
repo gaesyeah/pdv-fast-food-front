@@ -20,6 +20,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
+    "@types/axios": "^0.14.0",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "@types/react-icons": "^3.0.0",
