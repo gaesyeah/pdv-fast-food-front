@@ -12,6 +12,18 @@ const GlobalStyle = createGlobalStyle`
     a {
       text-decoration: none;
     }
+    input{
+      &:disabled{
+        opacity: 0.7;
+        cursor: progress;
+      }
+    }
+    button{
+      &:disabled{
+        opacity: 0.7;
+        cursor: progress;
+      }
+    }
   }
 `;
 

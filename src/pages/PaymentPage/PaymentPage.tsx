@@ -1,9 +1,11 @@
 import { StyledPage } from "../style";
 
-export const PaymentPage = () => {
+const PaymentPage = () => {
   return (
     <StyledPage>
       <p>PaymentPage</p>
     </StyledPage>
   );
 };
+
+export default PaymentPage;

@@ -3,7 +3,7 @@ import hamburgerIcon from "./../../assets/hamburgerIcon.png";
 import { Link, useLocation } from "react-router-dom";
 import { route } from "../../utils/routes";
 
-export const Header = () => {
+const Header = () => {
   const { pathname } = useLocation();
 
   return (
@@ -28,3 +28,5 @@ export const Header = () => {
     </StyledHeader>
   );
 };
+
+export default Header;

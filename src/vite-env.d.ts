@@ -22,7 +22,7 @@ export type Order = {
   updatedAt: string;
 };
 
-type OrderStatus = 'PREPARING' | 'FINISHED' | 'DELIVERED' | 'CANCELED';
+type OrderStatus = "PREPARING" | "FINISHED" | "DELIVERED" | "CANCELED";
 
 type FoodOrder = {
   id: number;
@@ -49,8 +49,8 @@ type OrderFoodExtras = {
 export type FoodCategory = {
   id: number;
   name: string;
+  imageUrl: string;
   Foods?: Food[];
-  frontBackGroundUrl: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -61,6 +61,8 @@ export type Food = {
   name: string;
   price: number;
   description: string;
+  imageUrl: string;
+  frontBackGroundUrl: string;
   foodCategoryId: number;
   FoodCategory?: FoodCategory;
   Extras?: Extra[];
@@ -80,3 +82,29 @@ export type Extra = {
   updatedAt: string;
   OrderFoodExtras?: OrderFoodExtras[];
 };
+
+type CategoriesState = {
+  foodCategories: FoodCategory[] | null;
+  setFoodCategories: Dispatch<SetStateAction<FoodCategory[] | null>>;
+};
+type SelectedFoodsState = {
+  foods: Food[] | null;
+  setFoods: Dispatch<SetStateAction<Food[] | null>>;
+};
+type FoodsState = {
+  selectedFoods: Food[] | null;
+  setSelectedFoods: Dispatch<SetStateAction<Food[] | null>>;
+};
+type openModalState = {
+  showModalWithFoodId: null | number;
+  setShowModalWithFoodId: Dispatch<SetStateAction<null | number>>;
+};
+type foodsLoadingState = {
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+};
+export type FoodsContextState = foodsLoadingState &
+  FoodsState &
+  CategoriesState &
+  SelectedFoodsState &
+  openModalState;

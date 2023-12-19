@@ -1,9 +1,11 @@
 import { StyledPage } from "../style";
 
-export const KitchenPage = () => {
+const KitchenPage = () => {
   return (
-    <StyledPage>
+<StyledPage>
       <p>KitchenPage</p>
     </StyledPage>
   );
 };
+
+export default KitchenPage;

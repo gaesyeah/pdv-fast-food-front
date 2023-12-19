@@ -1,9 +1,11 @@
 import { StyledPage } from "../style";
 
-export const PickupPage = () => {
+const PickupPage = () => {
   return (
     <StyledPage>
       <p>PickupPage</p>
     </StyledPage>
   );
 };
+
+export default PickupPage;
