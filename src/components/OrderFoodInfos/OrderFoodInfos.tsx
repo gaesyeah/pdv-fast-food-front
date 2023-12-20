@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Extra, FoodOnOrder } from "../../vite-env";
+import { useContext, useEffect, useState } from "react";
+import { Extra, Food, FoodOnOrder } from "../../vite-env";
 import { StyledOrderFoodInfos, TotalInfo } from "./styles";
 import FoodsContext from "../../context/FoodsContext";
 import OrderFoodInfoComponent from "./OrderFoodInfoComponent/OrderFoodInfoComponent";
@@ -12,8 +12,13 @@ const OrderFoodInfos = ({
 }) => {
   const { allFoods } = useContext(FoodsContext) || {};
 
+  const [originalAllFoods, setOriginalAllFoods] = useState<Food[]>([]);
+  useEffect(() => {
+    setOriginalAllFoods(allFoods || []);
+  }, []);
+
   const findFoodData = (foodId: number) => {
-    return allFoods?.find(({ id }) => id === foodId);
+    return originalAllFoods?.find(({ id }) => id === foodId);
   };
   const filterExtrasData = (extraId: number, extras: Extra[]) => {
     return extras?.filter(({ id }) => id === extraId);
