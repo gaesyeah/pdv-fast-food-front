@@ -64,6 +64,9 @@ const OrderFoodInfos = ({
 
   const FinalPrice = () => {
     let finalPrice = 0;
+    const addToFinalPrice = (price: number, quantity: number) => {
+      finalPrice += price * (quantity || 1);
+    };
 
     for (let i = 0; i < selectedFoods.length; i++) {
       const { foodId, extras, quantity } = selectedFoods[i];
@@ -72,7 +75,7 @@ const OrderFoodInfos = ({
 
       const { Extras, price } = foodData;
 
-      finalPrice += price * (quantity || 1);
+      addToFinalPrice(price, quantity);
 
       if (!extras) return <span>{convertPrice(finalPrice)}</span>;
 
@@ -85,7 +88,7 @@ const OrderFoodInfos = ({
         for (let k = 0; k < extrasData.length; k++) {
           const { price } = extrasData[k];
 
-          finalPrice += price * (quantity || 1);
+          addToFinalPrice(price, quantity);
         }
       }
     }
