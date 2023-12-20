@@ -13,7 +13,6 @@ export type Order = {
   status: OrderStatus;
   code: number;
   customerName: string;
-  observation?: string | null;
   paidValue: number;
   paymentTypeId: number;
   PaymentType?: PaymentType;
@@ -27,6 +26,7 @@ type OrderStatus = "PREPARING" | "FINISHED" | "DELIVERED" | "CANCELED";
 type FoodOrder = {
   id: number;
   quantity: number;
+  observation?: string | null;
   foodId: number;
   Food?: Food;
   orderId: number;
