@@ -13,7 +13,6 @@ export type Order = {
   status: OrderStatus;
   code: number;
   customerName: string;
-  observation?: string | null;
   paidValue: number;
   paymentTypeId: number;
   PaymentType?: PaymentType;
@@ -27,6 +26,7 @@ type OrderStatus = "PREPARING" | "FINISHED" | "DELIVERED" | "CANCELED";
 type FoodOrder = {
   id: number;
   quantity: number;
+  observation?: string | null;
   foodId: number;
   Food?: Food;
   orderId: number;
@@ -74,6 +74,7 @@ export type Food = {
 export type Extra = {
   id: number;
   foodId: number;
+  imageUrl: string;
   Food?: Food;
   name: string;
   price: number;
@@ -83,28 +84,46 @@ export type Extra = {
   OrderFoodExtras?: OrderFoodExtras[];
 };
 
+export type OrderBody = {
+  customerName: string;
+  paymentTypeId: string;
+  paidValue: number;
+  foods: FoodOnOrder[];
+};
+export type FoodOnOrder = {
+  foodId: number;
+  quantity: number;
+  observation?: string;
+  extras?: Pick<Extra, "id">[];
+};
+
+type OrderBodyState = {
+  orderBody: OrderBody | null;
+  setOrderBody: Dispatch<SetStateAction<OrderBody | null>>;
+};
 type CategoriesState = {
   foodCategories: FoodCategory[] | null;
   setFoodCategories: Dispatch<SetStateAction<FoodCategory[] | null>>;
 };
 type SelectedFoodsState = {
-  foods: Food[] | null;
-  setFoods: Dispatch<SetStateAction<Food[] | null>>;
+  selectedFoods: FoodOnOrder[];
+  setSelectedFoods: Dispatch<SetStateAction<FoodOnOrder[]>>;
 };
 type FoodsState = {
-  selectedFoods: Food[] | null;
-  setSelectedFoods: Dispatch<SetStateAction<Food[] | null>>;
+  allFoods: Food[] | null;
+  setAllFoods: Dispatch<SetStateAction<Food[] | null>>;
 };
-type openModalState = {
+type OpenModalState = {
   showModalWithFoodId: null | number;
   setShowModalWithFoodId: Dispatch<SetStateAction<null | number>>;
 };
-type foodsLoadingState = {
+type FoodsLoadingState = {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 };
-export type FoodsContextState = foodsLoadingState &
-  FoodsState &
+export type FoodsContextState = FoodsState &
+  FoodsLoadingState &
   CategoriesState &
   SelectedFoodsState &
-  openModalState;
+  OpenModalState &
+  OrderBodyState;

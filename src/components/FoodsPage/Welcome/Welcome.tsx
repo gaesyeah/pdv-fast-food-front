@@ -1,10 +1,12 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { StyledWelcome } from "./styles";
 import { getAPIandSetState } from "../../../utils/api";
 import FoodsContext from "../../../context/FoodsContext";
+import { setInput } from "../../../utils/helpers";
 
 const Welcome = () => {
-  const { setFoods, setIsLoading, isLoading } = useContext(FoodsContext) ?? {};
+  const { setAllFoods, setIsLoading, isLoading } =
+    useContext(FoodsContext) ?? {};
 
   const [searchInput, setSearchInput] = useState<string>("");
 
@@ -12,7 +14,7 @@ const Welcome = () => {
     e.preventDefault();
     await getAPIandSetState({
       route: `foods?identifier=${searchInput}`,
-      setState: setFoods,
+      setState: setAllFoods,
       setIsLoading,
     });
     setSearchInput("");
@@ -24,9 +26,7 @@ const Welcome = () => {
       <input
         disabled={isLoading}
         value={searchInput}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setSearchInput(e.target.value)
-        }
+        onChange={(e) => setInput({ e, setState: setSearchInput })}
         placeholder="O que você procura?"
       />
     </StyledWelcome>

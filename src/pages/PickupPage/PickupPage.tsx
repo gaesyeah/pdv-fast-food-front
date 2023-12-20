@@ -1,4 +1,4 @@
-import { StyledPage } from "../style";
+import { StyledPage } from "../styles";
 
 const PickupPage = () => {
   return (

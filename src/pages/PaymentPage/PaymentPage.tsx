@@ -1,4 +1,4 @@
-import { StyledPage } from "../style";
+import { StyledPage } from "../styles";
 
 const PaymentPage = () => {
   return (

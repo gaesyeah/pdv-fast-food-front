@@ -1,8 +1,8 @@
-import { StyledPage } from "../style";
+import { StyledPage } from "../styles";
 
 const KitchenPage = () => {
   return (
-<StyledPage>
+    <StyledPage>
       <p>KitchenPage</p>
     </StyledPage>
   );

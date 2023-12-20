@@ -10,12 +10,12 @@ const FoodCategoryComponent = ({
 }: {
   category: FoodCategory;
 }) => {
-  const { setFoods, setIsLoading } = useContext(FoodsContext) ?? {};
+  const { setAllFoods, setIsLoading } = useContext(FoodsContext) ?? {};
 
   const searchFoodsByCategoryId = () => {
     getAPIandSetState<Food>({
       route: `${APIroute.foods}/category/${id}`,
-      setState: setFoods,
+      setState: setAllFoods,
       setIsLoading,
     });
   };

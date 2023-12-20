@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { color } from "../../../../utils/colors";
+import { IoIosClose } from "react-icons/io";
 
 export const ModalBackground = styled.div`
   cursor: pointer;
@@ -14,6 +15,7 @@ export const ModalBackground = styled.div`
 
 export const ModalContent = styled.div<{ centerModal: boolean }>`
   padding: 4%;
+  overflow: auto;
   background-color: ${color.white};
   border-radius: 30px;
   width: 57%;
@@ -21,7 +23,6 @@ export const ModalContent = styled.div<{ centerModal: boolean }>`
   opacity: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
   position: absolute;
   transition: 400ms;
   right: ${({ centerModal }) => (centerModal ? "22.5%" : "100%")};
@@ -35,4 +36,13 @@ export const StyledSelectModal = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 3;
+`;
+
+export const Close = styled(IoIosClose)`
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 60px;
+  color: ${color.gray3};
 `;

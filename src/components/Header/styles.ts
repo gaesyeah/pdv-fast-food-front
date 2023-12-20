@@ -3,7 +3,7 @@ import { color } from "../../utils/colors";
 
 export const StyledHeader = styled.header`
   position: fixed;
-  z-index: 1;
+  z-index: 6;
   height: 10px;
   width: 100%;
   background-color: ${color.green1};

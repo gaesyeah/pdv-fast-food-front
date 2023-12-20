@@ -3,17 +3,20 @@ import FoodsContext from "../../../context/FoodsContext";
 import { getAPIandSetState } from "../../../utils/api";
 import { Food } from "../../../vite-env";
 import { APIroute } from "../../../utils/routes";
-import { Infos, StyledContainer, StyledParent } from "../styles";
+import { StyledContainer, StyledParent } from "../styles";
 import FoodComponent from "./FoodComponent/FoodComponent";
+import { Infos } from "./styles";
 
 const Foods = () => {
-  const { foods, setFoods, setIsLoading, isLoading } =
+  const { allFoods, setAllFoods, setIsLoading, isLoading } =
     useContext(FoodsContext) ?? {};
 
   useEffect(() => {
+    if (allFoods) return;
+    
     getAPIandSetState<Food>({
       route: APIroute.foods,
-      setState: setFoods,
+      setState: setAllFoods,
       setIsLoading,
     });
   }, []);
@@ -27,7 +30,9 @@ const Foods = () => {
       <StyledContainer section="foods">
         {isLoading
           ? "Carregando..."
-          : foods?.map((food) => <FoodComponent key={food.id} food={food} />)}
+          : allFoods?.map((food) => (
+              <FoodComponent key={food.id} food={food} />
+            ))}
       </StyledContainer>
     </StyledParent>
   );
