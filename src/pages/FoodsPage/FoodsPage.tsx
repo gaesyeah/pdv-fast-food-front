@@ -3,12 +3,14 @@ import FoodCategories from "../../components/FoodsPage/FoodCategories/FoodCatego
 import Foods from "../../components/FoodsPage/Foods/Foods";
 import SelectFoodModal from "../../components/FoodsPage/Foods/SelectFoodModal/SelectFoodModal";
 import Welcome from "../../components/FoodsPage/Welcome/Welcome";
-import { StyledPage } from "../style";
+import { StyledPage } from "../styles";
 import { FoodsPageContainer } from "./style";
 import FoodsContext from "../../context/FoodsContext";
+import { OrderButtons } from "../../components/FoodsPage/OrderButtons/OrderButtons";
+import OrderFoodInfos from "../../components/OrderFoodInfos/OrderFoodInfos";
 
 export const FoodsPage = () => {
-  const { showModalWithFoodId } = useContext(FoodsContext) || {};
+  const { showModalWithFoodId, selectedFoods } = useContext(FoodsContext) || {};
   return (
     <>
       {showModalWithFoodId && <SelectFoodModal />}
@@ -17,6 +19,8 @@ export const FoodsPage = () => {
           <Welcome />
           <FoodCategories />
           <Foods />
+          {selectedFoods && selectedFoods.length > 0 && <OrderFoodInfos />}
+          <OrderButtons />
         </FoodsPageContainer>
       </StyledPage>
     </>

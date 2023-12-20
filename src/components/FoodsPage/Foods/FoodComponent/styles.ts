@@ -55,8 +55,8 @@ export const FoodImg = styled.div<{ isOnSelectModal?: boolean }>`
   z-index: 1;
   position: absolute;
   overflow: hidden;
-  width: 110px;
-  height: 110px;
+  width: 125px;
+  height: 125px;
   top: 50%;
   left: 50%;
   transform: ${({ isOnSelectModal }) =>

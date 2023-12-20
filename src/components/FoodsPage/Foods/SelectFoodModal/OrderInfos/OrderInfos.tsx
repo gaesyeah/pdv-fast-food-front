@@ -1,75 +1,66 @@
-import { useContext, useEffect, useState } from "react";
-import {
-  DescriptionText,
-  FoodBasicInfos,
-  FoodDescription,
-  FoodPrice,
-  Quantity,
-  StyledOrderInfos,
-} from "./styles";
-import { Food } from "../../../../../vite-env";
-import { getAPIandSetState } from "../../../../../utils/api";
+import { useContext, useState } from "react";
+import { Margin, StyledOrderInfos } from "./styles";
 import FoodsContext from "../../../../../context/FoodsContext";
-import {
-  FoodImg,
-  FoodInfos,
-  StyledFoodComponent,
-} from "../../FoodComponent/styles";
-import { convertPrice } from "../../../../../utils/helpers";
+import { setInput } from "../../../../../utils/helpers";
+import Extras from "./Extras/Extras";
+import { StyledOrderButtons } from "../../../styles";
+import OrderFinalDetails from "./OrderFinalDetails/OrderFinalDetails";
+import { Infos } from "../../styles";
+import OrderFoods from "./OrderFoodInfos/OrderFoodInfos";
 
-const OrderInfos = () => {
-  const { showModalWithFoodId } = useContext(FoodsContext) || {};
+type ExecOrder = {
+  execOrder: (isNotCancel: boolean) => void;
+};
 
-  const [food, setFood] = useState<Food>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [quantity, setQuantity] = useState<number>(1);
+const OrderInfos = ({ execOrder }: ExecOrder) => {
+  const { selectedFoods, showModalWithFoodId, allFoods } =
+    useContext(FoodsContext) || {};
 
-  useEffect(() => {
-    getAPIandSetState({
-      route: `foods/details/${showModalWithFoodId}`,
-      setIsLoading,
-      setState: setFood,
-    });
-  }, []);
+  const [observationInput, setObservationInput] = useState<string>("");
 
-  if (!food || isLoading) return "Carregando...";
-  const { id, frontBackGroundUrl, imageUrl, price, name, description } = food;
+  const food = allFoods?.find(({ id }) => id === showModalWithFoodId);
+  if (!food) return;
 
-  const changeQuantity = (type: "sum" | "sub") => {
-    if (type === "sub" && quantity == 1) return;
-    setQuantity((previous) => (type === "sum" ? previous + 1 : previous - 1));
+  const { id, price, Extras: extras } = food;
+
+  const renderQuantity = () => {
+    const savedFoodQuantity = selectedFoods?.find(({ foodId }) => foodId === id)
+      ?.quantity;
+
+    if (savedFoodQuantity) return savedFoodQuantity;
+
+    return 1;
   };
 
   return (
     <StyledOrderInfos>
       <h1>Revise seu pedido!</h1>
-      <FoodBasicInfos>
-        <StyledFoodComponent isOnSelectModal={true}>
-          <img src={frontBackGroundUrl} alt={`food back ${id}`} />
-          <FoodImg isOnSelectModal={true}>
-            <img src={imageUrl} alt={`food img ${id}`} />
-          </FoodImg>
-          <FoodInfos isOnSelectModal={true}></FoodInfos>
-        </StyledFoodComponent>
-        <FoodDescription>
-          <p>{name}</p>
-          <DescriptionText>
-            <span>{description}</span>
-          </DescriptionText>
-          <Quantity quantity={quantity}>
-            <div onClick={() => changeQuantity("sub")}>
-              <span>-</span>
-            </div>
-            <p>{quantity}</p>
-            <div onClick={() => changeQuantity("sum")}>
-              <span>+</span>
-            </div>
-          </Quantity>
-        </FoodDescription>
-        <FoodPrice>
-          <p>{convertPrice(price)}</p>
-        </FoodPrice>
-      </FoodBasicInfos>
+
+      <OrderFoods food={food} quantity={renderQuantity()} />
+
+      {extras && extras.length > 0 && <Extras extras={extras} />}
+
+      <Infos>
+        <h3>Observações</h3>
+        <textarea
+          placeholder="Adicione observações ao pedido"
+          value={observationInput}
+          onChange={(e) => setInput({ e, setState: setObservationInput })}
+        />
+      </Infos>
+
+      <OrderFinalDetails
+        quantity={renderQuantity()}
+        price={price}
+        food={food}
+      />
+
+      <StyledOrderButtons>
+        <button onClick={() => execOrder(true)}>Continuar adicionando</button>
+        <button onClick={() => execOrder(true)}>Adicionar ao pedido</button>
+      </StyledOrderButtons>
+
+      <Margin></Margin>
     </StyledOrderInfos>
   );
 };

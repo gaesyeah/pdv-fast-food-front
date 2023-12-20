@@ -4,7 +4,8 @@ import { getAPIandSetState } from "../../../utils/api";
 import FoodCategoryComponent from "./FoodCategoryComponent/FoodCategoryComponent";
 import { FoodCategory } from "../../../vite-env";
 import { APIroute } from "../../../utils/routes";
-import { Infos, StyledContainer, StyledParent } from "../styles";
+import { StyledContainer, StyledParent } from "../styles";
+import { Infos } from "../Foods/styles";
 
 const FoodCategories = () => {
   const { foodCategories, setFoodCategories } = useContext(FoodsContext) ?? {};
@@ -12,6 +13,8 @@ const FoodCategories = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    if (foodCategories) return;
+    
     getAPIandSetState<FoodCategory>({
       route: APIroute.categories,
       setState: setFoodCategories,

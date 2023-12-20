@@ -1,10 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { ModalContent, ModalBackground, StyledSelectModal } from "./styles";
+import {
+  ModalContent,
+  ModalBackground,
+  StyledSelectModal,
+  Close,
+} from "./styles";
 import FoodsContext from "../../../../context/FoodsContext";
 import OrderInfos from "./OrderInfos/OrderInfos";
+import { FoodOnOrder } from "../../../../vite-env";
 
 const SelectFoodModal = () => {
-  const { setShowModalWithFoodId } = useContext(FoodsContext) || {};
+  const { setShowModalWithFoodId, showModalWithFoodId, setSelectedFoods } =
+    useContext(FoodsContext) || {};
 
   const [centerModal, setCenterModal] = useState<boolean>(false);
   useEffect(() => {
@@ -13,18 +20,29 @@ const SelectFoodModal = () => {
     }, 100);
   }, []);
 
-  const controlModal = () => {
-    setTimeout(() => {
-      setShowModalWithFoodId(null);
-    }, 500);
-    setCenterModal(false);
+  const execOrder = (isNotCancel: boolean) => {
+    const controlModal = () => {
+      setTimeout(() => {
+        setShowModalWithFoodId(null);
+      }, 500);
+      setCenterModal(false);
+    };
+
+    if (isNotCancel) return controlModal();
+
+    const id = showModalWithFoodId;
+    setSelectedFoods((selectedFoods: FoodOnOrder[]) => {
+      return selectedFoods.filter(({ foodId }) => foodId !== id);
+    });
+    controlModal();
   };
 
   return (
     <StyledSelectModal>
-      <ModalBackground onClick={controlModal}></ModalBackground>
+      <ModalBackground onClick={() => execOrder(false)}></ModalBackground>
       <ModalContent centerModal={centerModal}>
-        <OrderInfos />
+        <OrderInfos execOrder={execOrder} />
+        <Close onClick={() => execOrder(false)} />
       </ModalContent>
     </StyledSelectModal>
   );
