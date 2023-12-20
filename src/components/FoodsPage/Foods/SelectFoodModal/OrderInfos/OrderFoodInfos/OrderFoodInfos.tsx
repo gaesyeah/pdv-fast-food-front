@@ -20,13 +20,13 @@ const OrderFoods = ({
   quantity,
   food: { id, frontBackGroundUrl, imageUrl, name, description, price },
 }: {
-  quantity: number;
+  quantity: number | string | undefined;
   food: Food;
 }) => {
   const { setSelectedFoods } = useContext(FoodsContext) || {};
 
   const changeQuantity = (type: "sum" | "sub") => {
-    if (type === "sub" && quantity === 1) return;
+    if (type === "sub" && (quantity as number) === 1) return;
 
     setSelectedFoods((foods: FoodOnOrder[]) => {
       return foods.map((food) => {

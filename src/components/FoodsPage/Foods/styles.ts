@@ -14,8 +14,9 @@ export const Infos = styled.div`
     font-weight: 300;
   }
   textarea {
+    padding: 16px;
     width: 100%;
-    min-height: 200px;
+    min-height: 135px;
     background-color: ${color.gray1};
     border-radius: 12px;
     border: none;

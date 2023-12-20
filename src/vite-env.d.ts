@@ -87,13 +87,13 @@ export type Extra = {
 export type OrderBody = {
   customerName: string;
   paymentTypeId: string;
-  observation?: string;
   paidValue: number;
   foods: FoodOnOrder[];
 };
 export type FoodOnOrder = {
   foodId: number;
   quantity: number;
+  observation?: string;
   extras?: Pick<Extra, "id">[];
 };
 

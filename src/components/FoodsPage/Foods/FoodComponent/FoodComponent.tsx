@@ -14,10 +14,11 @@ const FoodComponent = ({ food }: { food: Food }) => {
 
   const selectFood = () => {
     setShowModalWithFoodId(id);
-    setSelectedFoods((previous: FoodOnOrder[]) => [
-      ...previous,
-      { foodId: id },
-    ]);
+    setSelectedFoods((previous: FoodOnOrder[]) => {
+      if (isSelected) return previous;
+
+      return [...previous, { foodId: id }];
+    });
   };
 
   return (

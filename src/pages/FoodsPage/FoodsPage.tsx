@@ -11,15 +11,22 @@ import OrderFoodInfos from "../../components/OrderFoodInfos/OrderFoodInfos";
 
 export const FoodsPage = () => {
   const { showModalWithFoodId, selectedFoods } = useContext(FoodsContext) || {};
+
+  const isRenderAllowed = selectedFoods && selectedFoods?.length;
+
   return (
     <>
-      {showModalWithFoodId && <SelectFoodModal />}
+      {showModalWithFoodId ? <SelectFoodModal /> : <></>}
       <StyledPage>
         <FoodsPageContainer>
           <Welcome />
           <FoodCategories />
           <Foods />
-          {selectedFoods && selectedFoods.length > 0 && <OrderFoodInfos />}
+          {isRenderAllowed ? (
+            <OrderFoodInfos selectedFoods={[...selectedFoods]} />
+          ) : (
+            <></>
+          )}
           <OrderButtons />
         </FoodsPageContainer>
       </StyledPage>

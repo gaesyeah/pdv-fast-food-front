@@ -11,7 +11,7 @@ export const StyledOrderFoods = styled.div`
   }
 `;
 
-export const Quantity = styled.div<{ quantity: number }>`
+export const Quantity = styled.div<{ quantity: number | string | undefined }>`
   border-radius: 50px;
   border: 2px solid ${color.green1};
   p {
@@ -26,7 +26,8 @@ export const Quantity = styled.div<{ quantity: number }>`
   height: 45px;
   div:nth-child(1) {
     margin-left: -1px;
-    cursor: ${({ quantity }) => (quantity === 1 ? "not-allowed" : "pointer")};
+    cursor: ${({ quantity }) =>
+      (quantity as number) === 1 ? "not-allowed" : "pointer"};
   }
   div:nth-child(3) {
     margin-right: -1px;

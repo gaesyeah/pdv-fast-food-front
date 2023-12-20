@@ -1,58 +1,68 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Margin, StyledOrderInfos } from "./styles";
 import FoodsContext from "../../../../../context/FoodsContext";
-import { setInput } from "../../../../../utils/helpers";
+import { selectSavedFood } from "../../../../../utils/helpers";
 import Extras from "./Extras/Extras";
 import { StyledOrderButtons } from "../../../styles";
-import OrderFinalDetails from "./OrderFinalDetails/OrderFinalDetails";
 import { Infos } from "../../styles";
 import OrderFoods from "./OrderFoodInfos/OrderFoodInfos";
+import OrderFoodInfos from "../../../../OrderFoodInfos/OrderFoodInfos";
+import { FoodOnOrder } from "../../../../../vite-env";
 
 type ExecOrder = {
   execOrder: (isNotCancel: boolean) => void;
 };
 
 const OrderInfos = ({ execOrder }: ExecOrder) => {
-  const { selectedFoods, showModalWithFoodId, allFoods } =
+  const { selectedFoods, setSelectedFoods, showModalWithFoodId, allFoods } =
     useContext(FoodsContext) || {};
-
-  const [observationInput, setObservationInput] = useState<string>("");
 
   const food = allFoods?.find(({ id }) => id === showModalWithFoodId);
   if (!food) return;
 
-  const { id, price, Extras: extras } = food;
+  const { id, Extras: extras } = food;
 
-  const renderQuantity = () => {
-    const savedFoodQuantity = selectedFoods?.find(({ foodId }) => foodId === id)
-      ?.quantity;
+  const savedFood = selectSavedFood({
+    selectedFoods: selectedFoods || [],
+    id,
+  });
 
-    if (savedFoodQuantity) return savedFoodQuantity;
-
-    return 1;
+  const handleObservation = (newValue: string) => {
+    setSelectedFoods((previous: FoodOnOrder[]) => {
+      return [
+        ...previous.filter(({ foodId }) => foodId !== savedFood?.foodId),
+        { ...savedFood, observation: newValue },
+      ];
+    });
   };
+
+  const isRenderAllowed = extras && extras.length > 0;
 
   return (
     <StyledOrderInfos>
       <h1>Revise seu pedido!</h1>
 
-      <OrderFoods food={food} quantity={renderQuantity()} />
+      <OrderFoods food={food} quantity={savedFood?.quantity || 1} />
 
-      {extras && extras.length > 0 && <Extras extras={extras} />}
+      {isRenderAllowed ? <Extras extras={extras} /> : <></>}
 
       <Infos>
         <h3>Observações</h3>
         <textarea
           placeholder="Adicione observações ao pedido"
-          value={observationInput}
-          onChange={(e) => setInput({ e, setState: setObservationInput })}
+          value={savedFood?.observation || ""}
+          onChange={(e) => handleObservation(e.target.value)}
         />
       </Infos>
 
-      <OrderFinalDetails
-        quantity={renderQuantity()}
-        price={price}
-        food={food}
+      <OrderFoodInfos
+        selectedFoods={[
+          {
+            foodId: id,
+            quantity: savedFood?.quantity || 1,
+            extras: savedFood?.extras || [],
+          },
+        ]}
       />
 
       <StyledOrderButtons>
