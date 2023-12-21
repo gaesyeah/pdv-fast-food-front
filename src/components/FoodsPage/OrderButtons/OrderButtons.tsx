@@ -2,7 +2,7 @@ import { useContext } from "react";
 import FoodsContext from "../../../context/FoodsContext";
 import { useNavigate } from "react-router-dom";
 import { route } from "../../../utils/routes";
-import { StyledOrderButtons } from "../styles";
+import { StyledOrderButtons } from "../../styles";
 
 export const OrderButtons = () => {
   const { selectedFoods, setSelectedFoods } = useContext(FoodsContext) || {};

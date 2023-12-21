@@ -1,32 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import { Extra, Food, FoodOnOrder } from "../../vite-env";
+import { useContext } from "react";
+import { FoodOnOrder } from "../../vite-env";
 import { StyledOrderFoodInfos, TotalInfo } from "./styles";
 import FoodsContext from "../../context/FoodsContext";
 import OrderFoodInfoComponent from "./OrderFoodInfoComponent/OrderFoodInfoComponent";
-import { convertPrice } from "../../utils/helpers";
+import {
+  convertPrice,
+  filterExtrasData,
+  finalPrice,
+  findFoodData,
+} from "../../utils/helpers";
 
 const OrderFoodInfos = ({
   selectedFoods,
 }: {
   selectedFoods: Omit<FoodOnOrder, "observation">[];
 }) => {
-  const { allFoods } = useContext(FoodsContext) || {};
+  const { originalAllFoods } = useContext(FoodsContext) || {};
 
-  const [originalAllFoods, setOriginalAllFoods] = useState<Food[]>([]);
-  useEffect(() => {
-    setOriginalAllFoods(allFoods || []);
-  }, []);
-
-  const findFoodData = (foodId: number) => {
-    return originalAllFoods?.find(({ id }) => id === foodId);
-  };
-  const filterExtrasData = (extraId: number, extras: Extra[]) => {
-    return extras?.filter(({ id }) => id === extraId);
-  };
+  if (!originalAllFoods) return;
 
   const RenderFoodsWithExtras = () => {
     return selectedFoods.map(({ foodId, quantity, extras }) => {
-      const foodData = findFoodData(foodId);
+      const foodData = findFoodData(foodId, originalAllFoods);
       if (!foodData) return;
 
       const { name, price, Extras } = foodData;
@@ -39,10 +34,10 @@ const OrderFoodInfos = ({
             price={price}
             key={foodId}
           />
-          {extras?.map(({ id }) => {
+          {extras?.map(({ extraId }) => {
             if (!Extras) return;
 
-            const extrasData = filterExtrasData(id, Extras);
+            const extrasData = filterExtrasData(extraId, Extras);
             if (!extrasData) return;
 
             return extrasData.map(({ name, price }) => {
@@ -52,7 +47,7 @@ const OrderFoodInfos = ({
                   name={name}
                   quantity={quantity}
                   price={price}
-                  key={id}
+                  key={extraId}
                 />
               );
             });
@@ -60,39 +55,6 @@ const OrderFoodInfos = ({
         </>
       );
     });
-  };
-
-  const FinalPrice = () => {
-    let finalPrice = 0;
-    const addToFinalPrice = (price: number, quantity: number) => {
-      finalPrice += price * (quantity || 1);
-    };
-
-    for (let i = 0; i < selectedFoods.length; i++) {
-      const { foodId, extras, quantity } = selectedFoods[i];
-      const foodData = findFoodData(foodId);
-      if (!foodData) return;
-
-      const { Extras, price } = foodData;
-
-      addToFinalPrice(price, quantity);
-
-      if (!extras) return <span>{convertPrice(finalPrice)}</span>;
-
-      for (let j = 0; j < extras.length; j++) {
-        if (!Extras) return;
-
-        const extrasData = filterExtrasData(extras[j].id, Extras);
-        if (!extrasData) return;
-
-        for (let k = 0; k < extrasData.length; k++) {
-          const { price } = extrasData[k];
-
-          addToFinalPrice(price, quantity);
-        }
-      }
-    }
-    return <span>{convertPrice(finalPrice)}</span>;
   };
 
   return (
@@ -104,7 +66,9 @@ const OrderFoodInfos = ({
       <TotalInfo>
         <hr />
         <p>Total do pedido:</p>
-        <FinalPrice />
+        <span>
+          {convertPrice(finalPrice({ originalAllFoods, selectedFoods }) || 0)}
+        </span>
       </TotalInfo>
     </StyledOrderFoodInfos>
   );

@@ -4,12 +4,12 @@ import { Extra, FoodOnOrder } from "../../../../../../../vite-env";
 import {
   ExtraDescription,
   ExtraImage,
-  ExtraSelect,
   LeftContent,
   RightContent,
   StyledExtraComponent,
 } from "./styles";
 import FoodsContext from "../../../../../../../context/FoodsContext";
+import { Select } from "../../../../../../styles";
 
 const ExtraComponent = ({
   extra: { name, description, imageUrl, price, id, foodId },
@@ -23,10 +23,10 @@ const ExtraComponent = ({
       return previousSelectedFoods.map((food) => {
         if (food.extras) {
           const { extras } = food;
-          return { ...food, extras: [...extras, { id }] };
+          return { ...food, extras: [...extras, { extraId: id }] };
         }
         if (food.foodId === foodId) {
-          return { ...food, extras: [{ id }] };
+          return { ...food, extras: [{ extraId: id }] };
         }
         return food;
       });
@@ -39,7 +39,9 @@ const ExtraComponent = ({
           const { extras } = food;
           return {
             ...food,
-            extras: extras.filter(({ id: selectedId }) => selectedId !== id),
+            extras: extras.filter(
+              ({ extraId: selectedId }) => selectedId !== id,
+            ),
           };
         }
         return food;
@@ -48,7 +50,7 @@ const ExtraComponent = ({
   };
   const isExtraSelected = () => {
     const food = selectedFoods?.find(({ foodId: id }) => id === foodId);
-    return food?.extras?.some(({ id: selectedId }) => selectedId === id);
+    return food?.extras?.some(({ extraId: selectedId }) => selectedId === id);
   };
 
   return (
@@ -66,10 +68,10 @@ const ExtraComponent = ({
       </LeftContent>
       <RightContent>
         <p>{convertPrice(price)}</p>
-        <ExtraSelect
-          isExtraSelected={isExtraSelected()}
+        <Select
+          isSelected={isExtraSelected()}
           onClick={() => (isExtraSelected() ? removeExtra() : addExtra())}
-        ></ExtraSelect>
+        ></Select>
       </RightContent>
     </StyledExtraComponent>
   );

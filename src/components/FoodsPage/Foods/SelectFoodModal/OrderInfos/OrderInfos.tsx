@@ -3,17 +3,14 @@ import { Margin, StyledOrderInfos } from "./styles";
 import FoodsContext from "../../../../../context/FoodsContext";
 import { selectSavedFood } from "../../../../../utils/helpers";
 import Extras from "./Extras/Extras";
-import { StyledOrderButtons } from "../../../styles";
 import { Infos } from "../../styles";
 import OrderFoods from "./OrderFoodInfos/OrderFoodInfos";
 import OrderFoodInfos from "../../../../OrderFoodInfos/OrderFoodInfos";
 import { FoodOnOrder } from "../../../../../vite-env";
+import { StyledOrderButtons } from "../../../../styles";
+import { ExecOrderModal } from "../../../../Modal/Modal";
 
-type ExecOrder = {
-  execOrder: (isNotCancel: boolean) => void;
-};
-
-const OrderInfos = ({ execOrder }: ExecOrder) => {
+const OrderInfos = ({ execOrderModal }: ExecOrderModal) => {
   const { selectedFoods, setSelectedFoods, showModalWithFoodId, allFoods } =
     useContext(FoodsContext) || {};
 
@@ -66,8 +63,12 @@ const OrderInfos = ({ execOrder }: ExecOrder) => {
       />
 
       <StyledOrderButtons>
-        <button onClick={() => execOrder(true)}>Continuar adicionando</button>
-        <button onClick={() => execOrder(true)}>Adicionar ao pedido</button>
+        <button onClick={() => execOrderModal && execOrderModal(true)}>
+          Continuar adicionando
+        </button>
+        <button onClick={() => execOrderModal && execOrderModal(true)}>
+          Adicionar ao pedido
+        </button>
       </StyledOrderButtons>
 
       <Margin></Margin>

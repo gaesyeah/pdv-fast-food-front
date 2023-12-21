@@ -15,7 +15,7 @@ const Extras = ({ extras }: { extras: Extra[] }) => {
       <StyledExtrasContainer>
         <ul>
           {extras.map((extra) => (
-            <ExtraComponent extra={extra} />
+            <ExtraComponent key={extra.id} extra={extra} />
           ))}
         </ul>
       </StyledExtrasContainer>
