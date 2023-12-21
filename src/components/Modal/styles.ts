@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { color } from "../../../../utils/colors";
 import { IoIosClose } from "react-icons/io";
+import { color } from "../../utils/colors";
 
 export const ModalBackground = styled.div`
   cursor: pointer;
@@ -13,7 +13,10 @@ export const ModalBackground = styled.div`
   position: fixed;
 `;
 
-export const ModalContent = styled.div<{ centerModal: boolean }>`
+export const ModalContent = styled.div<{
+  centerModal: boolean;
+  isMini?: boolean;
+}>`
   padding: 4%;
   overflow: auto;
   background-color: ${color.white};

@@ -26,17 +26,6 @@ export const RightContent = styled.div`
   }
 `;
 
-export const ExtraSelect = styled.div<{ isExtraSelected: boolean | undefined }>`
-  cursor: pointer;
-  border-radius: 100%;
-  height: 25px;
-  width: 25px;
-  border: 2px solid ${color.green1};
-  background-color: ${({ isExtraSelected }) =>
-    isExtraSelected ? `${color.green1}` : `${color.white}`};
-  transition: 400ms;
-`;
-
 export const ExtraDescription = styled.div`
   display: flex;
   flex-direction: column;

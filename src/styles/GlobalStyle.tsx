@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     user-select: none;
     letter-spacing: 1px;
+    h2 {
+      font-size: 31px;
+      font-weight: 700;
+    }
     a {
       text-decoration: none;
     }

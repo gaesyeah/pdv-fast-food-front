@@ -17,7 +17,7 @@ const FoodComponent = ({ food }: { food: Food }) => {
     setSelectedFoods((previous: FoodOnOrder[]) => {
       if (isSelected) return previous;
 
-      return [...previous, { foodId: id }];
+      return [...previous, { foodId: id, quantity: 1 }];
     });
   };
 

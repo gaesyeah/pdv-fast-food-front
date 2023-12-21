@@ -86,7 +86,7 @@ export type Extra = {
 
 export type OrderBody = {
   customerName: string;
-  paymentTypeId: string;
+  paymentTypeId: number;
   paidValue: number;
   foods: FoodOnOrder[];
 };
@@ -94,7 +94,7 @@ export type FoodOnOrder = {
   foodId: number;
   quantity: number;
   observation?: string;
-  extras?: Pick<Extra, "id">[];
+  extras?: { extraId: number }[];
 };
 
 type OrderBodyState = {
@@ -126,4 +126,4 @@ export type FoodsContextState = FoodsState &
   CategoriesState &
   SelectedFoodsState &
   OpenModalState &
-  OrderBodyState;
+  OrderBodyState & { originalAllFoods: Food[] };

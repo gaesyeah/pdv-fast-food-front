@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
+import Swal from "sweetalert2";
+import { errorSwal } from "./constants";
 
 type GetAPIandSetState<T> = {
   route: string;
@@ -21,7 +23,7 @@ export const getAPIandSetState = async <T>({
     setState(data);
     setIsLoading(false);
   } catch (err: unknown) {
-    alert(err);
     setIsLoading(false);
+    Swal.fire(errorSwal);
   }
 };

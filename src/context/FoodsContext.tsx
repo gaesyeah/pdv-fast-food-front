@@ -1,4 +1,11 @@
-import { FC, ReactNode, createContext, useState } from "react";
+import {
+  FC,
+  ReactNode,
+  createContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Food,
   FoodCategory,
@@ -27,10 +34,19 @@ export const FoodsProvider: FC<{ children: ReactNode }> = ({
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [originalAllFoods, setOriginalAllFoods] = useState<Food[]>([]);
+  const isEffected = useRef<boolean>(false);
+  useEffect(() => {
+    if (isEffected.current === true || !allFoods) return;
+    isEffected.current = true;
+    setOriginalAllFoods(allFoods);
+  }, [allFoods]);
+
   return (
     <FoodsContext.Provider
       value={{
         orderBody,
+        originalAllFoods,
         setOrderBody,
         showModalWithFoodId,
         setShowModalWithFoodId,
