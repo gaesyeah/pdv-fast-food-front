@@ -29,6 +29,7 @@ const RightContent = () => {
   };
 
   useEffect(() => {
+    if (paymentTypes) return;
     getAPIandSetState({
       route: APIroute.payments,
       setState: setPaymentTypes,

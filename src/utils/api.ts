@@ -6,7 +6,7 @@ import { errorSwal } from "./constants";
 type GetAPIandSetState<T> = {
   route: string;
   setState: Dispatch<SetStateAction<T>>;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  setIsLoading?: Dispatch<SetStateAction<boolean>>;
 };
 
 export const getAPIandSetState = async <T>({
@@ -14,16 +14,20 @@ export const getAPIandSetState = async <T>({
   setState,
   setIsLoading,
 }: GetAPIandSetState<T>) => {
+  const executeLoading = (boolean: boolean) => {
+    if (setIsLoading) {
+      return setIsLoading(boolean);
+    }
+  };
+  executeLoading(true);
   try {
-    setIsLoading(true);
     const { data } = await axios.get<T>(
       `${import.meta.env.VITE_BASE_URL}/${route}`,
     );
-
     setState(data);
-    setIsLoading(false);
+    executeLoading(false);
   } catch (err: unknown) {
-    setIsLoading(false);
+    executeLoading(false);
     Swal.fire(errorSwal);
   }
 };
