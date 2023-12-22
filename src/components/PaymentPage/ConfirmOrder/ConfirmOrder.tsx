@@ -9,6 +9,8 @@ import { Order } from "../../../vite-env";
 import Swal from "sweetalert2";
 import { errorSwal } from "../../../utils/constants";
 import { ExecOrderModal } from "../../Modal/Modal";
+import { getAPIandSetState } from "../../../utils/api";
+import OrdersContext from "../../../context/OrdersContext";
 
 const ConfirmOrder = ({
   setCode,
@@ -25,6 +27,8 @@ const ConfirmOrder = ({
     setIsLoading,
     isLoading,
   } = useContext(FoodsContext) || {};
+  const { setAllOrders, setIsLoading: setIsLoadingOrders } =
+    useContext(OrdersContext) || {};
 
   const navigate = useNavigate();
 
@@ -42,11 +46,10 @@ const ConfirmOrder = ({
     const BASE_URL = import.meta.env.VITE_BASE_URL;
     setIsLoading(true);
     try {
-      await axios.post(`${BASE_URL}/${APIroute.orders}`, orderBody);
-      const { data } = await axios.get<Order[]>(
-        `${BASE_URL}/${APIroute.orders}`,
-      );
-      setCode(`${data.length + 1}`);
+      const {
+        data: { id },
+      } = await axios.post<Order>(`${BASE_URL}/${APIroute.orders}`, orderBody);
+      setCode(`${id}`);
 
       setTimeout(() => {
         setShowModalWithFoodId(1);
@@ -57,6 +60,12 @@ const ConfirmOrder = ({
           setIsLoading(false);
         }, 2000);
       }, 1500);
+
+      await getAPIandSetState({
+        route: APIroute.orders,
+        setIsLoading: setIsLoadingOrders,
+        setState: setAllOrders,
+      });
     } catch (err: unknown) {
       setIsLoading(false);
       Swal.fire(errorSwal);

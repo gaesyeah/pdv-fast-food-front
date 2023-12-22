@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import LeftContent from "../../components/PaymentPage/LeftContent/LeftContent";
 import Title from "../../components/PaymentPage/TItle/Title";
 import { StyledPage } from "../styles";
-import { KitchenPageContainer, KitchenPageDivisor } from "./styles";
+import { PaymentPageContainer, PaymentPageDivisor } from "./styles";
 import FoodsContext from "../../context/FoodsContext";
 import { OrderBody } from "../../vite-env";
 import RightContent from "../../components/PaymentPage/RightContent/RightContent";
@@ -39,14 +39,14 @@ const PaymentPage = () => {
         <></>
       )}
       <StyledPage>
-        <KitchenPageContainer>
+        <PaymentPageContainer>
           <Title />
-          <KitchenPageDivisor>
+          <PaymentPageDivisor>
             <LeftContent code={code} />
             <RightContent />
-          </KitchenPageDivisor>
+          </PaymentPageDivisor>
           <ConfirmOrder setCode={setCode} />
-        </KitchenPageContainer>
+        </PaymentPageContainer>
       </StyledPage>
     </>
   );

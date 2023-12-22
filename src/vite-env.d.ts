@@ -11,7 +11,6 @@ export type PaymentType = {
 export type Order = {
   id: number;
   status: OrderStatus;
-  code: number;
   customerName: string;
   paidValue: number;
   paymentTypeId: number;
@@ -117,13 +116,22 @@ type OpenModalState = {
   showModalWithFoodId: null | number;
   setShowModalWithFoodId: Dispatch<SetStateAction<null | number>>;
 };
-type FoodsLoadingState = {
+export type LoadingState = {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 };
 export type FoodsContextState = FoodsState &
-  FoodsLoadingState &
+  LoadingState &
   CategoriesState &
   SelectedFoodsState &
   OpenModalState &
   OrderBodyState & { originalAllFoods: Food[] };
+
+type OrdersState = {
+  allOrders: Order[] | null;
+  setAllOrders: Dispatch<SetStateAction<Order[] | null>>;
+};
+
+export type OrdersContextState = OrdersState & LoadingState;
+
+export type OrderButtonStatus = "cancel" | "finish" | "deliver";
