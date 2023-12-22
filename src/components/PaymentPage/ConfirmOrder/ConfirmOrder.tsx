@@ -54,6 +54,7 @@ const ConfirmOrder = ({
       setTimeout(() => {
         setShowModalWithFoodId(1);
         setTimeout(() => {
+          navigate(`/${route.pickup}`);
           setShowModalWithFoodId(null);
           setOrderBody(null);
           setSelectedFoods([]);
