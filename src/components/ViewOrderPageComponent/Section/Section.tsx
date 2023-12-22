@@ -4,6 +4,7 @@ import { Orders, SectionContainer, StyledSection } from "./styles";
 import OrderComponent from "../../KitchenPage/OrderComponent/OrderComponent";
 import { Order } from "../../../vite-env";
 import PickupComponent from "../../PickupPage/PickupSection/PickupComponent";
+import LoadingComponent from "../../LoadingComponent/LoadingComponent";
 
 const Section = ({
   title,
@@ -21,13 +22,15 @@ const Section = ({
       <h2>{title}:</h2>
       <SectionContainer>
         <Orders isPickup={isPickup}>
-          {isLoading
-            ? "Carregando..."
-            : orders?.map((order) => {
-                const { id } = order;
-                if (isPickup) return <PickupComponent key={id} order={order} />;
-                return <OrderComponent key={id} order={order} />;
-              })}
+          {isLoading ? (
+            <LoadingComponent />
+          ) : (
+            orders?.map((order) => {
+              const { id } = order;
+              if (isPickup) return <PickupComponent key={id} order={order} />;
+              return <OrderComponent key={id} order={order} />;
+            })
+          )}
         </Orders>
       </SectionContainer>
     </StyledSection>
