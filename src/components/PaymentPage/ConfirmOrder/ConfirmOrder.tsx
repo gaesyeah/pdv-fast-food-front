@@ -59,8 +59,8 @@ const ConfirmOrder = ({
           setOrderBody(null);
           setSelectedFoods([]);
           setIsLoading(false);
-        }, 2000);
-      }, 1500);
+        }, 1500);
+      }, 2000);
 
       await getAPIandSetState({
         route: APIroute.orders,
