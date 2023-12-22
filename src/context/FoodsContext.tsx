@@ -13,6 +13,8 @@ import {
   FoodsContextState,
   OrderBody,
 } from "../vite-env";
+import { getAPIandSetState } from "../utils/api";
+import { APIroute } from "../utils/routes";
 
 const FoodsContext = createContext<undefined | FoodsContextState>(undefined);
 export default FoodsContext;
@@ -41,6 +43,18 @@ export const FoodsProvider: FC<{ children: ReactNode }> = ({
     isEffected.current = true;
     setOriginalAllFoods(allFoods);
   }, [allFoods]);
+  useEffect(() => {
+    getAPIandSetState({
+      route: APIroute.categories,
+      setState: setFoodCategories,
+      setIsLoading,
+    });
+    getAPIandSetState({
+      route: APIroute.foods,
+      setState: setAllFoods,
+      setIsLoading,
+    });
+  }, []);
 
   return (
     <FoodsContext.Provider

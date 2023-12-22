@@ -1,26 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import FoodsContext from "../../../context/FoodsContext";
-import { getAPIandSetState } from "../../../utils/api";
 import FoodCategoryComponent from "./FoodCategoryComponent/FoodCategoryComponent";
-import { FoodCategory } from "../../../vite-env";
-import { APIroute } from "../../../utils/routes";
 import { StyledContainer, StyledParent } from "../styles";
 import { Infos } from "../Foods/styles";
 
 const FoodCategories = () => {
-  const { foodCategories, setFoodCategories } = useContext(FoodsContext) ?? {};
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (foodCategories) return;
-    
-    getAPIandSetState<FoodCategory>({
-      route: APIroute.categories,
-      setState: setFoodCategories,
-      setIsLoading,
-    });
-  }, []);
+  const { foodCategories, isLoading } = useContext(FoodsContext) ?? {};
 
   return (
     <StyledParent>

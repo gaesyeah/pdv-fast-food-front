@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
-export const KitchenPageContainer = styled.div`
+export const PaymentPageContainer = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
   flex-direction: column;
   gap: 26px;
 `;
 
-export const KitchenPageDivisor = styled.div`
+export const PaymentPageDivisor = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

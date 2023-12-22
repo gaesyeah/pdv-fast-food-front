@@ -15,6 +15,7 @@ export const Select = styled.div<{ isSelected: boolean | undefined }>`
 
 export const StyledOrderButtons = styled.div<{ isMini?: boolean }>`
   display: flex;
+  padding-bottom: ${({ isMini }) => (isMini ? "50px" : "unset")};
   margin-right: ${({ isMini }) => (isMini ? "-34px" : "unset")};
   margin-top: ${({ isMini }) => (isMini ? "90px" : "unset")};
   gap: ${({ isMini }) => (isMini ? 30 : 65)}px;
