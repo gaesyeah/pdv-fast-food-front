@@ -7,6 +7,7 @@ import { OrderBody, PaymentType } from "../../../vite-env";
 import { APIroute } from "../../../utils/routes";
 import { convertPrice, finalPrice, setInput } from "../../../utils/helpers";
 import FoodsContext from "../../../context/FoodsContext";
+import LoadingComponent from "../../LoadingComponent/LoadingComponent";
 
 const RightContent = () => {
   const {
@@ -74,14 +75,16 @@ const RightContent = () => {
       <PaymentContainer>
         <h3>Selecione a forma de pagamento:</h3>
         <ul>
-          {isPaymentsLoading
-            ? "Carregando..."
-            : paymentTypes?.map((paymentType) => (
-                <PaymentTypeComponent
-                  key={paymentType.id}
-                  paymentType={paymentType}
-                />
-              ))}
+          {isPaymentsLoading ? (
+            <LoadingComponent />
+          ) : (
+            paymentTypes?.map((paymentType) => (
+              <PaymentTypeComponent
+                key={paymentType.id}
+                paymentType={paymentType}
+              />
+            ))
+          )}
         </ul>
       </PaymentContainer>
       <OrderInputs>

@@ -3,6 +3,7 @@ import FoodsContext from "../../../context/FoodsContext";
 import { StyledContainer, StyledParent } from "../styles";
 import FoodComponent from "./FoodComponent/FoodComponent";
 import { Infos } from "./styles";
+import LoadingComponent from "../../LoadingComponent/LoadingComponent";
 
 const Foods = () => {
   const { allFoods, isLoading } = useContext(FoodsContext) ?? {};
@@ -13,13 +14,17 @@ const Foods = () => {
         <h3>Produtos</h3>
         <p>Selecione um produto para adicionar ao seu pedido</p>
       </Infos>
-      <StyledContainer section="foods">
-        {isLoading
-          ? "Carregando..."
-          : allFoods?.map((food) => (
-              <FoodComponent key={food.id} food={food} />
-            ))}
-      </StyledContainer>
+      {isLoading ? (
+        <LoadingComponent />
+      ) : (
+        <StyledContainer section="foods">
+          {isLoading
+            ? "Carregando..."
+            : allFoods?.map((food) => (
+                <FoodComponent key={food.id} food={food} />
+              ))}
+        </StyledContainer>
+      )}
     </StyledParent>
   );
 };
