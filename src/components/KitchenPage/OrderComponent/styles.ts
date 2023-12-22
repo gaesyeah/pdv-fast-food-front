@@ -3,8 +3,8 @@ import { OrderStatus } from "../../../vite-env";
 import { color } from "../../../utils/colors";
 
 export const StyledKitchenOrderComponent = styled.li<{ status: OrderStatus }>`
-  border: 1px solid
-    ${({ status }) => (status === "FINISHED" ? color.green1 : color.gray3)};
+  border: ${({ status }) =>
+    status === "FINISHED" ? `${color.green1} 1px solid` : "unset"};
   box-shadow: ${({ status }) =>
     status === "FINISHED"
       ? ` ${color.greenBright} 0px 0px 2px 0px, ${color.greenBright} 0px 0px 2px 0px`
