@@ -6,11 +6,11 @@ import {
   Infos,
   OrderHandleButtons,
   OrderPrimaryInfos,
-  StyledOrderComponent,
+  StyledKitchenOrderComponent,
 } from "./styles";
 import FoodOrderComponent from "./FoodOrderComponent/FoodOrderComponent";
 
-const OrderComponent = ({
+const KitchenOrderComponent = ({
   order: { id, customerName, status, Foods },
 }: {
   order: Order;
@@ -18,7 +18,7 @@ const OrderComponent = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
-    <StyledOrderComponent status={status}>
+    <StyledKitchenOrderComponent status={status}>
       <OrderPrimaryInfos>
         <Infos>
           <h4>
@@ -62,8 +62,8 @@ const OrderComponent = ({
           <FoodOrderComponent key={foodOrder.id} foodOrder={foodOrder} />
         ))}
       </FoodOrderContainer>
-    </StyledOrderComponent>
+    </StyledKitchenOrderComponent>
   );
 };
 
-export default OrderComponent;
+export default KitchenOrderComponent;

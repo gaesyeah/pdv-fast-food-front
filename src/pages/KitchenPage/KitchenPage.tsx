@@ -1,27 +1,14 @@
-import { useContext, useEffect } from "react";
-import { StyledPage } from "../styles";
-import { Divisor, KitchenPageContainer } from "./styles";
-import { getAPIandSetState } from "../../utils/api";
+import { useContext } from "react";
+import { Divisor, StyledPage, ViewOrderPageContainer } from "../styles";
 import OrdersContext from "../../context/OrdersContext";
-import { APIroute } from "../../utils/routes";
-import Section from "../../components/KitchenPage/Section/Section";
+import Section from "../../components/Section/Section";
 
 const KitchenPage = () => {
-  const { allOrders, setAllOrders, setIsLoading } =
-    useContext(OrdersContext) || {};
-
-  useEffect(() => {
-    if (allOrders) return;
-    getAPIandSetState({
-      route: APIroute.orders,
-      setIsLoading,
-      setState: setAllOrders,
-    });
-  }, []);
+  const { allOrders } = useContext(OrdersContext) || {};
 
   return (
     <StyledPage>
-      <KitchenPageContainer>
+      <ViewOrderPageContainer>
         <Section
           title="Preparando"
           orders={
@@ -35,7 +22,7 @@ const KitchenPage = () => {
             allOrders?.filter(({ status }) => status === "FINISHED") || []
           }
         />
-      </KitchenPageContainer>
+      </ViewOrderPageContainer>
     </StyledPage>
   );
 };
