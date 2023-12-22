@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import OrdersContext from "../../context/OrdersContext";
+import OrdersContext from "../../../context/OrdersContext";
 import { Orders, SectionContainer, StyledSection } from "./styles";
-import OrderComponent from "../KitchenPage/OrderComponent/OrderComponent";
-import { Order } from "../../vite-env";
-import PickupComponent from "../PickupPage/PickupSection/PickupComponent";
+import OrderComponent from "../../KitchenPage/OrderComponent/OrderComponent";
+import { Order } from "../../../vite-env";
+import PickupComponent from "../../PickupPage/PickupSection/PickupComponent";
 
 const Section = ({
   title,
