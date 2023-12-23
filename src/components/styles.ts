@@ -20,7 +20,7 @@ export const Select = styled.div<{ isSelected: boolean | undefined }>`
 
 export const StyledOrderButtons = styled.div<{ isMini?: boolean }>`
   @media (max-width: ${media.mobile}) {
-    gap: ${({ isMini }) => (isMini ? 14 : 20)}px;
+    gap: ${({ isMini }) => (isMini ? '14px' : '5%')};
     flex-direction: ${({ isMini }) => (isMini ? "column" : "unset")};
     align-items: ${({ isMini }) => (isMini ? "center" : "unset")};
     width: ${({ isMini }) => (isMini ? "100%" : "unset")};
