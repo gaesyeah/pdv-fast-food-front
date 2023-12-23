@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import { color } from "../utils/colors";
+import { media } from "../utils/constants";
 
 export const Select = styled.div<{ isSelected: boolean | undefined }>`
+  @media (max-width: ${media.mobile}) {
+    min-height: 20px;
+    min-width: 20px;
+  }
   cursor: pointer;
   box-sizing: border-box;
   border-radius: 100%;
-  height: 24px;
-  width: 24px;
+  min-height: 24px;
+  min-width: 24px;
   border: 2px solid ${color.green1};
   background-color: ${({ isSelected }) =>
     isSelected ? `${color.green1}` : `${color.white}`};
@@ -14,6 +19,13 @@ export const Select = styled.div<{ isSelected: boolean | undefined }>`
 `;
 
 export const StyledOrderButtons = styled.div<{ isMini?: boolean }>`
+  @media (max-width: ${media.mobile}) {
+    gap: ${({ isMini }) => (isMini ? 14 : 20)}px;
+    flex-direction: ${({ isMini }) => (isMini ? "column" : "unset")};
+    align-items: ${({ isMini }) => (isMini ? "center" : "unset")};
+    width: ${({ isMini }) => (isMini ? "100%" : "unset")};
+    margin-top: unset;
+  }
   display: flex;
   padding-bottom: ${({ isMini }) => (isMini ? "50px" : "unset")};
   margin-right: ${({ isMini }) => (isMini ? "-34px" : "unset")};
@@ -21,6 +33,12 @@ export const StyledOrderButtons = styled.div<{ isMini?: boolean }>`
   gap: ${({ isMini }) => (isMini ? 30 : 65)}px;
   justify-content: flex-end;
   button {
+    @media (max-width: ${media.mobile}) {
+      width: ${({ isMini }) => (isMini ? 230 : 310)}px;
+      height: ${({ isMini }) => (isMini ? 50 : 55)}px;
+      font-size: ${({ isMini }) => (isMini ? 14 : 16)}px;
+      line-height: 17px;
+    }
     &:disabled {
       cursor: not-allowed;
     }

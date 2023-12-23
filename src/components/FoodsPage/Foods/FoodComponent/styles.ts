@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { color } from "../../../../utils/colors";
+import { media } from "../../../../utils/constants";
 
 export const StyledFoodComponent = styled.li<{ isOnSelectModal?: boolean }>`
+  @media (max-width: ${media.mobile}) {
+    height: ${({ isOnSelectModal }) => (isOnSelectModal ? "140" : "230")}px;
+    width: 200px;
+  }
   cursor: ${({ isOnSelectModal }) => (isOnSelectModal ? "default" : "pointer")};
   height: ${({ isOnSelectModal }) => (isOnSelectModal ? "185" : "300")}px;
   width: ${({ isOnSelectModal }) => (isOnSelectModal ? "245" : "244")}px;
@@ -52,6 +57,10 @@ export const FoodInfos = styled.div<{ isOnSelectModal?: boolean }>`
 `;
 
 export const FoodImg = styled.div<{ isOnSelectModal?: boolean }>`
+  @media (max-width: ${media.mobile}) {
+    width: 100px;
+    height: 100px;
+  }
   z-index: 1;
   position: absolute;
   overflow: hidden;

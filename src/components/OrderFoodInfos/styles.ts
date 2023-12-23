@@ -1,20 +1,12 @@
 import styled from "styled-components";
 import { color } from "../../utils/colors";
-
-export const StyledPage = styled.div`
-  padding-top: 140px;
-  background-color: ${color.white};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100dvh;
-  min-width: 100dvw;
-  h1 {
-    flex: 1;
-  }
-`;
+import { media } from "../../utils/constants";
 
 export const StyledOrderFoodInfos = styled.div`
+  @media (max-width: ${media.mobile}) {
+    padding: 24px 26px 20px 26px;
+    gap: 28px;
+  }
   margin-top: -20px;
   width: 100%;
   border-radius: 6px;
@@ -40,10 +32,16 @@ export const TotalInfo = styled.div`
     border-top: 2px dashed ${color.gray3};
   }
   p {
+    @media (max-width: ${media.mobile}) {
+      font-size: 19px;
+    }
     font-size: 22px;
     font-weight: 300;
   }
   span {
+    @media (max-width: ${media.mobile}) {
+      font-size: 30px;
+    }
     font-size: 36px;
     font-weight: 700;
   }

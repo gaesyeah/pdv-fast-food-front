@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { color } from "../../../utils/colors";
+import { media } from "../../../utils/constants";
 
 export const Infos = styled.div`
   display: flex;
@@ -14,6 +15,9 @@ export const Infos = styled.div`
     font-weight: 300;
   }
   textarea {
+    @media (max-width: ${media.mobile}) {
+      min-height: 90px;
+    }
     padding: 16px;
     width: 100%;
     min-height: 135px;

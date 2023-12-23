@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { color } from "../../../../../../utils/colors";
+import { media } from "../../../../../../utils/constants";
 
 export const StyledOrderFoods = styled.div`
+  @media (max-width: ${media.mobile}) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
   display: flex;
   justify-content: space-between;
   color: ${color.black};
@@ -14,7 +20,7 @@ export const StyledOrderFoods = styled.div`
 export const Quantity = styled.div<{ quantity: number | string | undefined }>`
   border-radius: 50px;
   border: 2px solid ${color.green1};
-  p {
+  h5 {
     font-size: 18px;
     font-weight: 300;
     color: ${color.black};
@@ -63,13 +69,28 @@ export const DescriptionText = styled.div`
 `;
 
 export const FoodDescription = styled.div`
+  @media (max-width: ${media.mobile}) {
+    gap: 24px;
+    align-items: center;
+    padding-top: unset;
+  }
   padding-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  p {
+    @media (max-width: ${media.mobile}) {
+      align-self: flex-start;
+    }
+  }
 `;
 
 export const FoodInfosContainer = styled.div`
+  @media (max-width: ${media.mobile}) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
   display: flex;
   gap: 40px;
 `;

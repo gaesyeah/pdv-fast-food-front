@@ -13,3 +13,7 @@ export const errorSwal: {
   iconColor: "red",
   confirmButtonColor: color.green1,
 };
+
+export const media = {
+  mobile: "768px",
+};

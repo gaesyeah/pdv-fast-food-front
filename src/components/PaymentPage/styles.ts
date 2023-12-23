@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { color } from "../../utils/colors";
+import { media } from "../../utils/constants";
 
 export const StyledContent = styled.div`
+  @media (max-width: ${media.mobile}) {
+    width: 100%;
+    gap: 15px;
+  }
   width: 44%;
   height: 100%;
   display: flex;
@@ -19,10 +24,14 @@ export const OrderInputs = styled.form`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
   div {
     gap: 10px;
     display: flex;
     flex-direction: column;
+    h3 {
+      min-height: 36px;
+    }
     input {
       &:disabled {
         cursor: not-allowed;

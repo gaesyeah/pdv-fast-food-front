@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import { color } from "../../../utils/colors";
+import { media } from "../../../utils/constants";
 
 export const StyledWelcome = styled.form`
   display: flex;
   flex-direction: column;
   gap: 24px;
   input {
+    @media (max-width: ${media.mobile}) {
+      width: 90%;
+      align-self: center;
+    }
     padding-left: 20px;
     border: none;
     font-size: 17px;
