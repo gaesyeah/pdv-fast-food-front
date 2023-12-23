@@ -64,7 +64,7 @@ const OrderFoods = ({
             <div onClick={() => changeQuantity("sub")}>
               <span>-</span>
             </div>
-            <p>{quantity}</p>
+            <h5>{quantity}</h5>
             <div onClick={() => changeQuantity("sum")}>
               <span>+</span>
             </div>

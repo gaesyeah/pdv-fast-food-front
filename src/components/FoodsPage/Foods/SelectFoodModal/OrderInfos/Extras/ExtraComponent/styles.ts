@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { color } from "../../../../../../../utils/colors";
+import { media } from "../../../../../../../utils/constants";
 
 export const StyledExtraComponent = styled.li`
+  @media (max-width: ${media.mobile}) {
+    flex-direction: column;
+  }
   height: 110px;
   background-color: ${color.white};
   display: flex;
@@ -47,6 +51,11 @@ export const ExtraDescription = styled.div`
 `;
 
 export const ExtraImage = styled.div`
+  @media (max-width: ${media.mobile}) {
+    min-width: 75px;
+    width: 75px;
+    height: 75px;
+  }
   height: 95px;
   width: 100px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;

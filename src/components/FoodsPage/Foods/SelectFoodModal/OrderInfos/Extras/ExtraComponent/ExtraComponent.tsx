@@ -21,12 +21,10 @@ const ExtraComponent = ({
   const addExtra = () => {
     setSelectedFoods((previousSelectedFoods: FoodOnOrder[]) => {
       return previousSelectedFoods.map((food) => {
-        if (food.extras) {
-          const { extras } = food;
-          return { ...food, extras: [...extras, { extraId: id }] };
-        }
+        if (!food.extras) return { ...food, extras: [{ extraId: id }] };
+        const { extras } = food;
         if (food.foodId === foodId) {
-          return { ...food, extras: [{ extraId: id }] };
+          return { ...food, extras: [...extras, { extraId: id }] };
         }
         return food;
       });

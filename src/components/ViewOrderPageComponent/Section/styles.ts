@@ -1,10 +1,17 @@
 import styled from "styled-components";
+import { media } from "../../../utils/constants";
 
 export const StyledSection = styled.div<{ isPickup?: boolean }>`
+  @media (max-width: ${media.mobile}) {
+    width: 100%;
+  }
   width: 38%;
   display: flex;
   flex-direction: column;
   h2 {
+    @media (max-width: ${media.mobile}) {
+      font-size: ${({ isPickup }) => (isPickup ? 42 : 31)}px;
+    }
     font-size: ${({ isPickup }) => (isPickup ? 52 : 31)}px;
     font-weight: 700;
   }

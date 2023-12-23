@@ -19,10 +19,12 @@ export const StyledConfirmedOrderModal = styled.div`
     }
   }
   h2 {
+    text-align: center;
     font-size: 36px;
     font-weight: 700;
   }
   p {
+    text-align: center;
     font-size: 19px;
     font-weight: 400;
   }

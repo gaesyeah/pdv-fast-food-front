@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { color } from "../../../utils/colors";
+import { media } from "../../../utils/constants";
 
 export const ListOrder = styled.div`
   width: 100%;
@@ -9,11 +10,16 @@ export const ListOrder = styled.div`
 `;
 
 export const ClientInput = styled.div`
+  @media (max-width: ${media.mobile}) {
+    width: 60%;
+  }
   width: 75%;
 `;
 
 export const CodeInput = styled.div<{ code: string }>`
-  width: 20%;
+  @media (max-width: ${media.mobile}) {
+    width: 35%;
+  }
   input {
     transition: 400ms;
     &:disabled {

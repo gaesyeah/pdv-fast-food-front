@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { color } from "../../../../utils/colors";
+import { media } from "../../../../utils/constants";
 
 export const StyledPaymentTypeComponent = styled.li<{
   isSelected: boolean;
   isLoading: boolean | undefined;
 }>`
+  @media (max-width: ${media.mobile}) {
+    height: 50px;
+    padding: 33px 33px 33px 18px;
+  }
   cursor: pointer;
   opacity: ${({ isLoading }) => (isLoading ? 0.6 : 1)};
   display: flex;
